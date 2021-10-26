@@ -14,9 +14,5 @@ Later we could perhaps use SuperCollider or something similar to also reimplemen
 
 October 25th, 2021
 
-* Note:
-
-The font file 3270Condensed-Regular.otf created by my friend RBanffy was copied from its Debian package.
-
-Learn more about this font family at https://github.com/rbanffy/3270font
+**Note:** The font file 3270Condensed-Regular.otf created by my friend RBanffy was copied from its Debian package. Learn more about this font family at https://github.com/rbanffy/3270font
 
