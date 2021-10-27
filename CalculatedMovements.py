@@ -47,9 +47,10 @@ def load_sound_file():
     from pydub.playback import play
     import threading
 
-#    audio = AudioSegment.from_mp3("audio/Larry Cuba - Calculated Movements.mp3")
-#    t = threading.Thread(target=play, args=(audio,))
-#    t.start()
+    # FIXME: This wont stop playback after closing the program
+    audio = AudioSegment.from_mp3("audio/Larry Cuba - Calculated Movements.mp3")
+    t = threading.Thread(target=play, args=(audio,))
+    t.start()
     
     start_time = py5.millis()
 
