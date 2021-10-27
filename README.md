@@ -16,3 +16,15 @@ October 25th, 2021
 
 **Note:** The font file 3270Condensed-Regular.otf created by my friend RBanffy was copied from its Debian package. Learn more about this font family at https://github.com/rbanffy/3270font
 
+How to run this!
+----
+
+On Debian GNU+Linux I did it this way:
+
+* sudo apt install virtualenv openjdk-11-jre
+* virtualenv venv -ppython3
+* . venv/bin/activate
+* pip install -r requirements.txt
+* python CalculatedMovements.py
+
+On other systems, please adapt the above instructions. I'd be surely happy to merge PRs with additional instructions.

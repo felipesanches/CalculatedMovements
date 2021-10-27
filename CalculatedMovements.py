@@ -24,28 +24,35 @@ Note:
     was copied from its Debian package.
     Learn more about this font family at https://github.com/rbanffy/3270font
 """
+import py5
 
-add_library('sound')
+
 start_time = 0
 font = None
-file = None
 loading_message = True
 
 
 def setup():
+    py5.size(640, 360)
+
     global font
     # This is not the exact same font, but it has
     # a similar look and is good enough for now...
-    font = createFont('3270Condensed-Regular.otf', 30)
-    size(640, 360)
+    font = py5.create_font('3270Condensed-Regular.otf', 30)
 
 
 def load_sound_file():
     global start_time
-    global file
-    file = SoundFile(this, "audio/Larry Cuba - Calculated Movements.mp3")
-    file.play()
-    start_time = millis()
+    from pydub import AudioSegment
+    from pydub.playback import play
+    import threading
+
+#    audio = AudioSegment.from_mp3("audio/Larry Cuba - Calculated Movements.mp3")
+#    t = threading.Thread(target=play, args=(audio,))
+#    t.start()
+    
+    start_time = py5.millis()
+
 
 shape = [
     [9, 1, 1],
@@ -171,100 +178,136 @@ def draw_swarm(shadow=False):
                 k2 = (p2-pos)
             if pos < p1 and (pos + L) > p2:
                 for n in [0.15, 0.3, 0.45, 0.6, 0.75]:
-                    line(zoom * (x + k2*dx - shadow*n), 360 - (zoom * (y + k2*dy - shadow*n)),
-                         zoom * (x + k1*dx - shadow*n), 360 - (zoom * (y + k1*dy - shadow*n)))
+                    py5.line(zoom * (x + k2*dx - shadow*n),
+                             360 - (zoom * (y + k2*dy - shadow*n)),
+                             zoom * (x + k1*dx - shadow*n),
+                             360 - (zoom * (y + k1*dy - shadow*n)))
         pos += L
         x += dx*L
         y += dy*L
-        
+
 
 def draw_scene1(time, total_time):
     global t
-    background(30);
+    py5.background(30);
+    py5.stroke_weight(6);
     t = time/(float(total_time)/LENGTH)
 
-    strokeWeight(6);
-    stroke(128);
+    py5.stroke(128);
     draw_swarm(shadow=True)
 
-    strokeWeight(6);
-    stroke(255);
+    py5.stroke(255);
     draw_swarm(shadow=False)
 
 
 def draw_countdown(time, total_time):
-    background(30);
-    textFont(font)
-    text("Not Yet Implemented", 40, 150)
-    text("5, 4, 3, 2, 1...", 40, 200)
-    text("{}%".format(100*time/total_time), 40, 250)
+    py5.background(30);
+    py5.text_font(font)
+    for offs in reversed(range(6)):
+        py5.fill(128 + (offs == 0) * 127);
+        py5.text("Not Yet Implemented", 40 - offs, 150 + offs)
+        py5.text("5, 4, 3, 2, 1...", 40 - offs, 200 + offs)
+        py5.text("{}%".format(100*time//total_time), 40 - offs, 250 + offs)
 
 
 def draw_copyright(time, total_time):
-    background(30);
-    textFont(font)
-    text("Copyright 1985", 15, 150)
-    text("Solid State Animation", 15, 200)
+    py5.background(30);
+    py5.text_font(font)
+    for offs in reversed(range(6)):
+        py5.fill(128 + (offs == 0) * 127);
+        py5.text("Copyright 1985", 15 - offs, 150 + offs)
+        py5.text("Solid State Animation", 15 - offs, 200 + offs)
 
 
 def draw_title_screen(time, total_time):
-    background(30);
-    textFont(font)
-    text("Calculated", 180, 150)
-    text("Movements", 180, 200)
+    py5.background(30);
+    py5.text_font(font)
+    for offs in reversed(range(6)):
+        py5.fill(128 + (offs == 0) * 127);
+        py5.text("Calculated", 180 - offs, 150 + offs)
+        py5.text("Movements", 180 - offs, 200 + offs)
 
 
 def draw_tech_support(time, total_time):
-    background(30);
-    textFont(font)
-    text("Tech Support", 140, 150)
+    py5.background(30);
+    py5.text_font(font)
+    for offs in reversed(range(6)):
+        py5.fill(128 + (offs == 0) * 127);
+        py5.text("Tech Support", 140 - offs, 150 + offs)
 
 
 def draw_creative_support(time, total_time):
-    background(30);
-    textFont(font)
-    text("Creative Support", 140, 150)
-    text("Sound", 140, 250)
+    py5.background(30);
+    py5.text_font(font)
+    for offs in reversed(range(6)):
+        py5.fill(128 + (offs == 0) * 127);
+        py5.text("Creative Support", 140 - offs, 150 + offs)
+        py5.text("Sound", 140 - offs, 250 + offs)
 
 
 def draw_scene2(time, total_time):
-    background(30);
-    textFont(font)
-    text("Not Yet Implemented", 40, 150)
-    text("Scene 2: {}%".format(100*time/total_time), 100, 200)
+    py5.background(30);
+    py5.text_font(font)
+    for offs in reversed(range(6)):
+        py5.fill(128 + (offs == 0) * 127);
+        py5.text("Not Yet Implemented", 40 - offs, 150 + offs)
+        py5.text("Scene 2: {}%".format(100*time//total_time), 100 - offs, 200 + offs)
 
 
 def draw_scene3(time, total_time):
-    background(30);
-    textFont(font)
-    text("Not Yet Implemented", 40, 150)
-    text("Scene 3: {}%".format(100*time/total_time), 100, 200)
+    py5.background(30);
+    py5.text_font(font)
+    for offs in reversed(range(6)):
+        py5.fill(128 + (offs == 0) * 127);
+        py5.text("Not Yet Implemented", 40 - offs, 150 + offs)
+        py5.text("Scene 3: {}%".format(100*time//total_time), 100 - offs, 200 + offs)
+
 
 def draw_scene4(time, total_time):
-    background(30);
-    textFont(font)
-    text("Not Yet Implemented", 40, 150)
-    text("Scene 4: {}%".format(100*time/total_time), 100, 200)
+    py5.background(30);
+    py5.text_font(font)
+    for offs in reversed(range(6)):
+        py5.fill(128 + (offs == 0) * 127);
+        py5.text("Not Yet Implemented", 40 - offs, 150 + offs)
+        py5.text("Scene 4: {}%".format(100*time//total_time), 100 - offs, 200 + offs)
+
 
 def draw_scene5(time, total_time):
-    background(30);
-    textFont(font)
-    text("Not Yet Implemented", 40, 150)
-    text("Scene 5: {}%".format(100*time/total_time), 100, 200)
+    py5.background(30);
+    py5.text_font(font)
+    for offs in reversed(range(6)):
+        py5.fill(128 + (offs == 0) * 127);
+        py5.text("Not Yet Implemented", 40 - offs, 150 + offs)
+        py5.text("Scene 5: {}%".format(100*time//total_time), 100 - offs, 200 + offs)
+
 
 def draw_larry_cuba(time, total_time):
-    background(30);
-    textFont(font)
-    text("Larry Cuba", 180, 150)
+    py5.background(30);
+    py5.text_font(font)
+    for offs in reversed(range(6)):
+        py5.fill(128 + (offs == 0) * 127);
+        py5.text("Larry Cuba", 180 - offs, 150 + offs)
+
 
 def draw_grant(time, total_time):
-    background(30);
-    textFont(font)
-    text("The Filmmaker", 20, 100)
-    text("received a production", 20, 150)
-    text("grant from", 20, 200)
-    text("THE AMERICAN FILM", 20, 250)
-    text("INSTITUTE", 20, 300)
+    py5.background(30);
+    py5.text_font(font)
+
+    py5.text("The Filmmaker", 250, 100)
+    py5.text("received a production", 250, 125)
+    py5.text("grant from", 250, 150)
+
+    for offs in reversed(range(6)):
+        py5.fill(128 + (offs == 0) * 127);
+        py5.text("THE AMERICAN FILM", 250 - offs, 180 + offs)
+        py5.text("INSTUTUTE", 250 - offs, 210 + offs)
+
+    py5.text("in association with", 250, 240)
+
+    for offs in reversed(range(6)):
+        py5.fill(128 + (offs == 0) * 127);
+        py5.text("THE NATIONAL ENDOWMENT", 250 - offs, 270 + offs)
+        py5.text("FOR THE ARTS", 250 - offs, 300 + offs)
 
 
 def parse_timestamp(ts):
@@ -275,13 +318,14 @@ def parse_timestamp(ts):
     return msecs
 
 scenes = [
-    ["00:00.0", "00:04.0", draw_countdown],
-    ["00:10.0", "00:14.0", draw_copyright],
-    ["00:13.5", "00:21.0", draw_title_screen],
-    ["00:21.0", "00:28.0", draw_tech_support],
-    ["00:28.0", "00:36.0", draw_creative_support],
-    ["00:39.0", "01:32.0", draw_scene1],
-    ["01:36.0", "03:22.0", draw_scene2],
+    ["00:00.0", "02:30.0", draw_grant],
+#    ["00:00.0", "00:04.0", draw_countdown],
+#    ["00:10.0", "00:14.0", draw_copyright],
+#    ["00:13.5", "00:21.0", draw_title_screen],
+#    ["00:21.0", "00:28.0", draw_tech_support],
+#    ["00:28.0", "00:36.0", draw_creative_support],
+#    ["00:39.0", "01:32.0", draw_scene1],
+#    ["01:36.0", "03:22.0", draw_scene2],
     ["03:23.0", "03:55.0", draw_scene3],
     ["03:56.0", "05:42.0", draw_scene4],
     ["05:44.0", "06:05.0", draw_scene5],
@@ -293,22 +337,27 @@ def draw():
     global loading_message
 
     if loading_message:
-        background(102)
-        textFont(font)
-        text("Loading", 180, 150)
-        text("Sound File...", 180, 200)
+        py5.background(102)
+        py5.text_font(font)
+        for offs in reversed(range(6)):
+            py5.fill(128 + (offs == 0) * 127);
+            py5.text("Loading", 180 - offs, 150 + offs)
+            py5.text("Sound File...", 180 - offs, 200 + offs)
         loading_message = False
         return
 
-    if file is None:
+    if start_time == 0:
         load_sound_file()
         return
 
-    clear()
-    time = millis() - start_time
+    #FIXME: py5.clear()
+    time = py5.millis() - start_time
     for scene_start, scene_end, render_callback in scenes:
         t_start = parse_timestamp(scene_start)
         t_end = parse_timestamp(scene_end)
         t_total = t_end - t_start
         if time >= t_start and time < t_end:
             render_callback(time - t_start, t_total)
+
+
+py5.run_sketch()
