@@ -318,14 +318,13 @@ def parse_timestamp(ts):
     return msecs
 
 scenes = [
-    ["00:00.0", "02:30.0", draw_grant],
-#    ["00:00.0", "00:04.0", draw_countdown],
-#    ["00:10.0", "00:14.0", draw_copyright],
-#    ["00:13.5", "00:21.0", draw_title_screen],
-#    ["00:21.0", "00:28.0", draw_tech_support],
-#    ["00:28.0", "00:36.0", draw_creative_support],
-#    ["00:39.0", "01:32.0", draw_scene1],
-#    ["01:36.0", "03:22.0", draw_scene2],
+    ["00:00.0", "00:04.0", draw_countdown],
+    ["00:10.0", "00:14.0", draw_copyright],
+    ["00:13.5", "00:21.0", draw_title_screen],
+    ["00:21.0", "00:28.0", draw_tech_support],
+    ["00:28.0", "00:36.0", draw_creative_support],
+    ["00:39.0", "01:32.0", draw_scene1],
+    ["01:36.0", "03:22.0", draw_scene2],
     ["03:23.0", "03:55.0", draw_scene3],
     ["03:56.0", "05:42.0", draw_scene4],
     ["05:44.0", "06:05.0", draw_scene5],
