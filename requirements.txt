@@ -1,2 +1,2 @@
 py5
-pydub
+PyGObject

@@ -24,10 +24,15 @@ Note:
     was copied from its Debian package.
     Learn more about this font family at https://github.com/rbanffy/3270font
 """
+import gi
+gi.require_version('Gst', '1.0')
+from gi.repository import GObject, Gst
+import os
 import py5
 
 
 start_time = 0
+playbin = None
 font = None
 loading_message = True
 
@@ -45,12 +50,22 @@ def setup():
 
 def load_sound_file():
     global start_time
-    from pydub import AudioSegment
-    from pydub.playback import play
+    global playbin
 
-    audio = AudioSegment.from_mp3("audio/Larry Cuba - Calculated Movements.mp3")
+    Gst.init()
+    mainloop = GObject.MainLoop()
+
+    # setting up a single "playbin" element which
+    # handles every part of the playback by itself
+    playbin = Gst.ElementFactory.make("playbin", "player")
+    playbin.set_property('uri',
+                        'file://' + \
+                         os.path.abspath('audio/Larry Cuba - Calculated Movements.mp3'))
+
+    #running the playbin
+    playbin.set_state(Gst.State.PLAYING)
     start_time = py5.millis()
-    play(audio)
+    mainloop.run()
 
 
 shape = [
@@ -376,7 +391,10 @@ def prev_scene():
             if i > 0:
                 prev_start = parse_timestamp(scenes[i-1][0])
                 start_time = py5.millis() - prev_start
-                # TODO: audio.seek(prev_start)
+                seek_time_secs = prev_start / 1000
+                playbin.seek_simple(Gst.Format.TIME,
+                                    Gst.SeekFlags.FLUSH | Gst.SeekFlags.KEY_UNIT,
+                                    seek_time_secs * Gst.SECOND)
 
 
 def next_scene():
@@ -390,7 +408,10 @@ def next_scene():
             if i+1 < len(scenes):
                 next_start = parse_timestamp(scenes[i+1][0])
                 start_time = py5.millis() - next_start
-                # TODO: audio.seek(next_start)
+                seek_time_secs = next_start / 1000
+                playbin.seek_simple(Gst.Format.TIME,
+                                    Gst.SeekFlags.FLUSH | Gst.SeekFlags.KEY_UNIT,
+                                    seek_time_secs * Gst.SECOND)
 
 
 def exiting():
