@@ -40,19 +40,17 @@ def setup():
     # a similar look and is good enough for now...
     font = py5.create_font('3270Condensed-Regular.otf', 30)
 
+    py5.launch_thread(load_sound_file)
+
 
 def load_sound_file():
     global start_time
     from pydub import AudioSegment
     from pydub.playback import play
-    import threading
 
-    # FIXME: This wont stop playback after closing the program
     audio = AudioSegment.from_mp3("audio/Larry Cuba - Calculated Movements.mp3")
-    t = threading.Thread(target=play, args=(audio,))
-    t.start()
-    
     start_time = py5.millis()
+    play(audio)
 
 
 shape = [
@@ -347,7 +345,6 @@ def draw():
         return
 
     if start_time == 0:
-        load_sound_file()
         return
 
     #FIXME: py5.clear()
@@ -359,5 +356,15 @@ def draw():
         if time >= t_start and time < t_end:
             render_callback(time - t_start, t_total)
 
+
+def exiting():
+    import sys
+    py5.stop_all_threads()
+    print("Thanks for watching!"
+          ""
+          "If you think you can improve this sketch,"
+          " please send a pull request to"
+          " https://github.com/felipesanches/CalculatedMovements")
+    sys.exit(0)
 
 py5.run_sketch()
