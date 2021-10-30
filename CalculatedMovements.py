@@ -396,11 +396,11 @@ def next_scene():
 def exiting():
     import sys
     py5.stop_all_threads()
-    py5.exit_sketch()
     print("Thanks for watching!"
           ""
           "If you think you can improve this sketch,"
           " please send a pull request to"
           " https://github.com/felipesanches/CalculatedMovements")
+    sys.exit(0)
 
 py5.run_sketch()
