@@ -214,114 +214,142 @@ def draw_scene1(time, total_time):
     draw_swarm(shadow=False)
 
 
-def draw_countdown(time, total_time):
-    py5.background(30);
-    py5.text_font(font)
+def shadowed(content, x=0, y=0):
     for offs in reversed(range(6)):
         py5.fill(128 + (offs == 0) * 127);
-        py5.text("Not Yet Implemented", 40 - offs, 150 + offs)
-        py5.text("5, 4, 3, 2, 1...", 40 - offs, 200 + offs)
-        py5.text("{}%".format(100*time//total_time), 40 - offs, 250 + offs)
+        py5.push_matrix()
+        py5.translate(x - offs, y + offs)
+        content()
+        py5.pop_matrix()
+
+
+def print_text(text_string, line_spacing=40):
+    py5.text_font(font)
+    py5.text(text_string, 0, 0)
+    py5.translate(0, line_spacing)
+
+
+def draw_countdown(time, total_time):
+    def content():
+        print_text("Not Yet Implemented")
+        print_text("5, 4, 3, 2, 1...")
+        print_text("{}%".format(100*time//total_time))
+
+    py5.background(30);
+    shadowed(content, 40, 150)
 
 
 def draw_copyright(time, total_time):
+    def content():
+        print_text("Copyright 1985")
+        print_text("Solid State Animation")
+
     py5.background(30);
-    py5.text_font(font)
-    for offs in reversed(range(6)):
-        py5.fill(128 + (offs == 0) * 127);
-        py5.text("Copyright 1985", 15 - offs, 150 + offs)
-        py5.text("Solid State Animation", 15 - offs, 200 + offs)
+    shadowed(content, 15, 150);
 
 
 def draw_title_screen(time, total_time):
+    def content():
+        print_text("Calculated")
+        print_text("Movements")
+
     py5.background(30);
-    py5.text_font(font)
-    for offs in reversed(range(6)):
-        py5.fill(128 + (offs == 0) * 127);
-        py5.text("Calculated", 180 - offs, 150 + offs)
-        py5.text("Movements", 180 - offs, 200 + offs)
+    shadowed(content, 180, 150);
 
 
 def draw_tech_support(time, total_time):
+    def content():
+        print_text("TECHNICAL SUPPORT")
+        py5.translate(0, 20)
+        print_text("Antenna Audio")
+        print_text("Peter Broadwell")
+        print_text("Donald Day")
+        print_text("Tom DeFanti")
+        print_text("Lou Katz")
+        print_text("Lyon Lamb Video Animation")
+
     py5.background(30);
-    py5.text_font(font)
-    for offs in reversed(range(6)):
-        py5.fill(128 + (offs == 0) * 127);
-        py5.text("Tech Support", 140 - offs, 150 + offs)
+    shadowed(content, 140, 50);
 
 
 def draw_creative_support(time, total_time):
+    def content():
+        print_text("CREATIVE SUPPORT")
+        print_text("Rob Meyers")
+        print_text("Sara Petty")
+
+        py5.translate(0, 50)
+        print_text("SOUND")
+        print_text("Larry Simon")
+        print_text("Liza Kitchell")
+
     py5.background(30);
-    py5.text_font(font)
-    for offs in reversed(range(6)):
-        py5.fill(128 + (offs == 0) * 127);
-        py5.text("Creative Support", 140 - offs, 150 + offs)
-        py5.text("Sound", 140 - offs, 250 + offs)
+    shadowed(content, 140, 50);
 
 
 def draw_scene2(time, total_time):
+    def content():
+        print_text("Not Yet Implemented")
+        print_text("Scene 2: {}%".format(100*time//total_time))
+
     py5.background(30);
-    py5.text_font(font)
-    for offs in reversed(range(6)):
-        py5.fill(128 + (offs == 0) * 127);
-        py5.text("Not Yet Implemented", 40 - offs, 150 + offs)
-        py5.text("Scene 2: {}%".format(100*time//total_time), 100 - offs, 200 + offs)
+    shadowed(content, 40, 150)
 
 
 def draw_scene3(time, total_time):
+    def content():
+        print_text("Not Yet Implemented")
+        print_text("Scene 3: {}%".format(100*time//total_time))
+
     py5.background(30);
-    py5.text_font(font)
-    for offs in reversed(range(6)):
-        py5.fill(128 + (offs == 0) * 127);
-        py5.text("Not Yet Implemented", 40 - offs, 150 + offs)
-        py5.text("Scene 3: {}%".format(100*time//total_time), 100 - offs, 200 + offs)
+    shadowed(content, 40, 150)
 
 
 def draw_scene4(time, total_time):
+    def content():
+        print_text("Not Yet Implemented")
+        print_text("Scene 4: {}%".format(100*time//total_time))
+
     py5.background(30);
-    py5.text_font(font)
-    for offs in reversed(range(6)):
-        py5.fill(128 + (offs == 0) * 127);
-        py5.text("Not Yet Implemented", 40 - offs, 150 + offs)
-        py5.text("Scene 4: {}%".format(100*time//total_time), 100 - offs, 200 + offs)
+    shadowed(content, 40, 150)
 
 
 def draw_scene5(time, total_time):
+    def content():
+        print_text("Not Yet Implemented")
+        print_text("Scene 5: {}%".format(100*time//total_time))
+
     py5.background(30);
-    py5.text_font(font)
-    for offs in reversed(range(6)):
-        py5.fill(128 + (offs == 0) * 127);
-        py5.text("Not Yet Implemented", 40 - offs, 150 + offs)
-        py5.text("Scene 5: {}%".format(100*time//total_time), 100 - offs, 200 + offs)
+    shadowed(content, 40, 150)
 
 
 def draw_larry_cuba(time, total_time):
+    def content():
+        print_text("Larry Cuba")
+
     py5.background(30);
-    py5.text_font(font)
-    for offs in reversed(range(6)):
-        py5.fill(128 + (offs == 0) * 127);
-        py5.text("Larry Cuba", 180 - offs, 150 + offs)
+    shadowed(content, 180, 150)
 
 
 def draw_grant(time, total_time):
+    def the_american_film_institute():
+        print_text("THE AMERICAN FILM")
+        print_text("INSTITUTE")
+
+    def the_national_endownment_for_the_arts():
+        print_text("THE NATIONAL ENDOWMENT")
+        print_text("FOR THE ARTS")
+
     py5.background(30);
-    py5.text_font(font)
+    py5.translate(250, 50)
+    print_text("The Filmmaker")
+    print_text("received a production")
+    print_text("grant from")
+    shadowed(the_american_film_institute)
 
-    py5.text("The Filmmaker", 250, 100)
-    py5.text("received a production", 250, 125)
-    py5.text("grant from", 250, 150)
-
-    for offs in reversed(range(6)):
-        py5.fill(128 + (offs == 0) * 127);
-        py5.text("THE AMERICAN FILM", 250 - offs, 180 + offs)
-        py5.text("INSTUTUTE", 250 - offs, 210 + offs)
-
-    py5.text("in association with", 250, 240)
-
-    for offs in reversed(range(6)):
-        py5.fill(128 + (offs == 0) * 127);
-        py5.text("THE NATIONAL ENDOWMENT", 250 - offs, 270 + offs)
-        py5.text("FOR THE ARTS", 250 - offs, 300 + offs)
+    py5.translate(0, 80)
+    print_text("in association with")
+    shadowed(the_national_endownment_for_the_arts)
 
 
 def parse_timestamp(ts):
