@@ -98,27 +98,25 @@ p = [[0, 4], [11, 4], [22, 4], [28, 2],
 LENGTH += p[-1][0] + p[-1][1]
 
 
-def draw_swarm(shadow=False):
+def draw_swarm(grid_size=18, t_delay=0):
     x = 7
     y = 1
-    zoom = 360/20
     pos = 0
     for L, dx, dy in shape:
         for i in range(len(p)):
             k1 = L
             k2 = 0
-            p1 = t - p[i][0]
+            p1 = (t - t_delay) - p[i][0]
             p2 = p1 - p[i][1]
             if p1 < pos+L:
                 k1 = (p1-pos)
             if p2 > pos:
                 k2 = (p2-pos)
             if pos < p1 and (pos + L) > p2:
-                for n in [0.15, 0.3, 0.45, 0.6, 0.75]:
-                    py5.line(zoom * (x + k2*dx - shadow*n),
-                             360 - (zoom * (y + k2*dy - shadow*n)),
-                             zoom * (x + k1*dx - shadow*n),
-                             360 - (zoom * (y + k1*dy - shadow*n)))
+                py5.line(grid_size * (x + k2*dx),
+                         360 - (grid_size * (y + k2*dy)),
+                         grid_size * (x + k1*dx),
+                         360 - (grid_size * (y + k1*dy)))
         pos += L
         x += dx*L
         y += dy*L
@@ -130,16 +128,12 @@ def draw_scene1(time, total_time):
     py5.stroke_weight(6);
     t = time/(float(total_time)/LENGTH)
 
-    py5.stroke(128);
-    draw_swarm(shadow=True)
-
-    py5.stroke(255);
-    draw_swarm(shadow=False)
+    shadowed(draw_swarm, fill=py5.stroke)
 
 
-def shadowed(content, x=0, y=0):
+def shadowed(content, x=0, y=0, fill=py5.fill):
     for offs in reversed(range(6)):
-        py5.fill(128 + (offs == 0) * 127);
+        fill(128 + (offs == 0) * 127);
         py5.push_matrix()
         py5.translate(x - offs, y + offs)
         content()
@@ -220,12 +214,29 @@ def draw_scene2(time, total_time):
 
 
 def draw_scene3(time, total_time):
-    def content():
-        print_text("Not Yet Implemented")
-        print_text("Scene 3: {}%".format(100*time//total_time))
-
+    global t
     py5.background(30);
-    shadowed(content, 40, 150)
+    py5.stroke_weight(6);
+    t = time/(float(total_time)/LENGTH)
+
+    def content():
+        py5.push_matrix()
+        py5.translate(320, -180)
+
+        py5.push_matrix()
+        for i in range(6):
+            py5.translate(-50, 25)
+            draw_swarm(grid_size=9, t_delay=i*0.3)
+        py5.pop_matrix()
+
+        py5.translate(-25, 75)
+        for i in range(6):
+            py5.translate(-50, 25)
+            draw_swarm(grid_size=9, t_delay=(5+i)*0.3)
+
+        py5.pop_matrix()
+
+    shadowed(content, fill=py5.stroke)
 
 
 def draw_scene4(time, total_time):
