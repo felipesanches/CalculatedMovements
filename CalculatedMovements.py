@@ -33,6 +33,7 @@ import py5
 
 start_time = 0
 playbin = None
+glib_mainloop = None
 font = None
 loading_message = True
 
@@ -51,9 +52,10 @@ def setup():
 def load_sound_file():
     global start_time
     global playbin
+    global glib_mainloop
 
     Gst.init()
-    mainloop = GLib.MainLoop()
+    glib_mainloop = GLib.MainLoop()
 
     # setting up a single "playbin" element which
     # handles every part of the playback by itself
@@ -65,7 +67,7 @@ def load_sound_file():
     #running the playbin
     playbin.set_state(Gst.State.PLAYING)
     start_time = py5.millis()
-    mainloop.run()
+    glib_mainloop.run()
 
 
 shape = [[9, 1, 1], [5, -1, 1], [4, 1, 1], [11, 1, -1], [5, -1, -1],
@@ -370,18 +372,13 @@ def next_scene():
 
 
 def exiting():
-    import sys
+    glib_mainloop.quit()
     py5.stop_all_threads()
     print("\n"
-          "\n"
           "Thanks for watching!\n"
           "\n"
           "If you think you can improve this sketch,"
           " please send a pull request to:\n"
-          "https://github.com/felipesanches/CalculatedMovements\n"
-          "\n"
-          "Press CTRL+C to stop music and close the program.\n"
-          "\n")
-    sys.exit(0)
+          "https://github.com/felipesanches/CalculatedMovements\n")
 
 py5.run_sketch()
