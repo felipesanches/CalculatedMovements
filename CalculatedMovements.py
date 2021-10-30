@@ -89,16 +89,18 @@ for L, dx, dy in shape:
    LENGTH += L
 
 t = 0
-p = [[0, 4], [11, 4], [22, 4], [28, 2],
-     [33, 4], [44, 4], [55, 4], [66, 4],
-     [78, 3], [89, 4], [101, 4], [112, 4],
-     [123, 4], [134, 4], [145, 4], [156, 4],
-     [162, 4], [173, 4]]
+p_scene1 = [[0, 4], [11, 4], [22, 4], [28, 2],
+            [33, 4], [44, 4], [55, 4], [66, 4],
+            [78, 3], [89, 4], [101, 4], [112, 4],
+            [123, 4], [134, 4], [145, 4], [156, 4],
+            [162, 4], [173, 4]]
+p_scene3 = [[0, 20], [30, 20]]
 
-LENGTH += p[-1][0] + p[-1][1]
+LENGTH_scene1 = LENGTH + p_scene1[-1][0] + p_scene1[-1][1]
+LENGTH_scene3 = LENGTH + p_scene3[-1][0] + p_scene3[-1][1]
 
 
-def draw_swarm(grid_size=18, t_delay=0):
+def draw_swarm(p, grid_size=18, t_delay=0):
     x = 7
     y = 1
     pos = 0
@@ -125,10 +127,13 @@ def draw_swarm(grid_size=18, t_delay=0):
 def draw_scene1(time, total_time):
     global t
     py5.background(30);
-    py5.stroke_weight(6);
-    t = time/(float(total_time)/LENGTH)
+    py5.stroke_weight(4);
+    t = time/(float(total_time)/LENGTH_scene1)
 
-    shadowed(draw_swarm, fill=py5.stroke)
+    def content():
+        draw_swarm(p_scene1)
+    
+    shadowed(content, fill=py5.stroke)
 
 
 def shadowed(content, x=0, y=0, fill=py5.fill):
@@ -216,8 +221,8 @@ def draw_scene2(time, total_time):
 def draw_scene3(time, total_time):
     global t
     py5.background(30);
-    py5.stroke_weight(6);
-    t = time/(float(total_time)/LENGTH)
+    py5.stroke_weight(4);
+    t = time/(float(total_time)/LENGTH_scene3)
 
     def content():
         py5.push_matrix()
@@ -225,14 +230,14 @@ def draw_scene3(time, total_time):
 
         py5.push_matrix()
         for i in range(6):
-            py5.translate(-50, 25)
-            draw_swarm(grid_size=9, t_delay=i*0.3)
+            py5.translate(-30, 15)
+            draw_swarm(p_scene3, grid_size=9, t_delay=i*0.3)
         py5.pop_matrix()
 
-        py5.translate(-25, 75)
+        py5.translate(-15, 45)
         for i in range(6):
-            py5.translate(-50, 25)
-            draw_swarm(grid_size=9, t_delay=(5+i)*0.3)
+            py5.translate(-30, 15)
+            draw_swarm(p_scene3, grid_size=9, t_delay=(5+i)*0.3)
 
         py5.pop_matrix()
 
