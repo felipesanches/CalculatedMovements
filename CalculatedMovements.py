@@ -96,8 +96,8 @@ p_scene1 = [[0, 4], [11, 4], [22, 4], [28, 2],
             [162, 4], [173, 4]]
 p_scene3 = [[0, 20], [30, 20]]
 
-LENGTH_scene1 = LENGTH + p_scene1[-1][0] + p_scene1[-1][1]
-LENGTH_scene3 = LENGTH + p_scene3[-1][0] + p_scene3[-1][1]
+LENGTH_scene1 = LENGTH + p_scene1[-1][0] + p_scene1[-1][1] + 1
+LENGTH_scene3 = LENGTH + p_scene3[-1][0] + p_scene3[-1][1] + 4
 
 
 def draw_swarm(p, grid_size=18, t_delay=0):
