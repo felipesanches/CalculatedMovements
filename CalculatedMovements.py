@@ -26,7 +26,7 @@ Note:
 """
 import gi
 gi.require_version('Gst', '1.0')
-from gi.repository import GObject, Gst
+from gi.repository import GLib, Gst
 import os
 import py5
 
@@ -53,7 +53,7 @@ def load_sound_file():
     global playbin
 
     Gst.init()
-    mainloop = GObject.MainLoop()
+    mainloop = GLib.MainLoop()
 
     # setting up a single "playbin" element which
     # handles every part of the playback by itself
@@ -347,18 +347,6 @@ scenes = [
     ["06:19.0", "06:27.0", draw_grant]
 ]
 def draw():
-    global loading_message
-
-    if loading_message:
-        py5.background(102)
-        py5.text_font(font)
-        for offs in reversed(range(6)):
-            py5.fill(128 + (offs == 0) * 127);
-            py5.text("Loading", 180 - offs, 150 + offs)
-            py5.text("Sound File...", 180 - offs, 200 + offs)
-        loading_message = False
-        return
-
     if start_time == 0:
         return
 
@@ -417,11 +405,16 @@ def next_scene():
 def exiting():
     import sys
     py5.stop_all_threads()
-    print("Thanks for watching!"
-          ""
+    print("\n"
+          "\n"
+          "Thanks for watching!\n"
+          "\n"
           "If you think you can improve this sketch,"
-          " please send a pull request to"
-          " https://github.com/felipesanches/CalculatedMovements")
+          " please send a pull request to:\n"
+          "https://github.com/felipesanches/CalculatedMovements\n"
+          "\n"
+          "Press CTRL+C to stop music and close the program.\n"
+          "\n")
     sys.exit(0)
 
 py5.run_sketch()
