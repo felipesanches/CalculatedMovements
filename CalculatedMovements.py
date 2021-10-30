@@ -95,9 +95,11 @@ p_scene1 = [[0, 4], [11, 4], [22, 4], [28, 2],
             [123, 4], [134, 4], [145, 4], [156, 4],
             [162, 4], [173, 4]]
 p_scene3 = [[0, 20], [30, 20]]
+p_scene5 = [[i*10, 2] for i in range(5)]
 
 LENGTH_scene1 = LENGTH + p_scene1[-1][0] + p_scene1[-1][1] + 1
 LENGTH_scene3 = LENGTH + p_scene3[-1][0] + p_scene3[-1][1] + 4
+LENGTH_scene5 = LENGTH + p_scene5[-1][0] + p_scene3[-1][1]
 
 
 def draw_swarm(p, grid_size=18, t_delay=0):
@@ -253,12 +255,22 @@ def draw_scene4(time, total_time):
 
 
 def draw_scene5(time, total_time):
-    def content():
-        print_text("Not Yet Implemented")
-        print_text("Scene 5: {}%".format(100*time//total_time))
-
+    global t
     py5.background(30);
-    shadowed(content, 40, 150)
+    py5.stroke_weight(4);
+    t = time/(float(total_time)/LENGTH_scene5)
+
+    def content():
+        py5.push_matrix()
+        py5.translate(320, -180)
+
+        for i in range(6):
+            py5.translate(-50, 25)
+            draw_swarm(p_scene5, grid_size=9, t_delay=i*2)
+
+        py5.pop_matrix()
+
+    shadowed(content, fill=py5.stroke)
 
 
 def draw_larry_cuba(time, total_time):
