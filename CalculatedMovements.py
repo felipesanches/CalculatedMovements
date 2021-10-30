@@ -357,14 +357,50 @@ def draw():
             render_callback(time - t_start, t_total)
 
 
+def key_pressed():
+    if py5.is_key_pressed:
+        if py5.key in ['n', 'N']:
+           next_scene()
+        elif py5.key in ['p', 'P']:
+           prev_scene()
+
+
+def prev_scene():
+    global start_time
+    time = py5.millis() - start_time
+    for i, scene in enumerate(scenes):
+        scene_start, scene_end, _ = scene
+        t_start = parse_timestamp(scene_start)
+        t_end = parse_timestamp(scene_end)
+        if time >= t_start and time < t_end:
+            if i > 0:
+                prev_start = parse_timestamp(scenes[i-1][0])
+                start_time = py5.millis() - prev_start
+                # TODO: audio.seek(prev_start)
+
+
+def next_scene():
+    global start_time
+    time = py5.millis() - start_time
+    for i, scene in enumerate(scenes):
+        scene_start, scene_end, _ = scene
+        t_start = parse_timestamp(scene_start)
+        t_end = parse_timestamp(scene_end)
+        if time >= t_start and time < t_end:
+            if i+1 < len(scenes):
+                next_start = parse_timestamp(scenes[i+1][0])
+                start_time = py5.millis() - next_start
+                # TODO: audio.seek(next_start)
+
+
 def exiting():
     import sys
     py5.stop_all_threads()
+    py5.exit_sketch()
     print("Thanks for watching!"
           ""
           "If you think you can improve this sketch,"
           " please send a pull request to"
           " https://github.com/felipesanches/CalculatedMovements")
-    sys.exit(0)
 
 py5.run_sketch()
