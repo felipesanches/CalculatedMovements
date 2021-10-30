@@ -34,18 +34,16 @@ import py5
 start_time = 0
 playbin = None
 glib_mainloop = None
-font = None
 loading_message = True
 
 
 def setup():
     py5.size(640, 360)
 
-    global font
     # This is not the exact same font, but it has
     # a similar look and is good enough for now...
     font = py5.create_font('3270Condensed-Regular.otf', 30)
-
+    py5.text_font(font)
     py5.launch_thread(load_sound_file)
 
 
@@ -148,7 +146,6 @@ def shadowed(content, x=0, y=0, fill=py5.fill):
 
 
 def print_text(text_string, line_spacing=40):
-    py5.text_font(font)
     py5.text(text_string, 0, 0)
     py5.translate(0, line_spacing)
 

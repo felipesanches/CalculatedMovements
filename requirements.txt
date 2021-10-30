@@ -1,2 +1,2 @@
-py5
-PyGObject
+py5==0.6.0a2
+PyGObject==3.42.0
