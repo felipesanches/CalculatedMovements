@@ -145,6 +145,16 @@ def shadowed(content, x=0, y=0, fill=py5.fill):
         content()
         py5.pop_matrix()
 
+def double_shadowed(content, x=0, y=0, fill=py5.fill):
+    for offs in range(5):
+        fill(0)
+        py5.push_matrix()
+        py5.translate(x - 6 + offs, y + 18 + offs)
+        content()
+        py5.pop_matrix()
+
+    shadowed(content=content, x=x, y=y, fill=fill)
+
 
 def print_text(text_string, line_spacing=40):
     py5.text(text_string, 0, 0)
@@ -249,7 +259,7 @@ def draw_scene2_effect1(time, total_time):
             py5.translate(7*18, 18)
         py5.pop_matrix()
 
-    shadowed(content, fill=py5.stroke)
+    double_shadowed(content, fill=py5.stroke)
 
 
 def draw_scene3(time, total_time):
