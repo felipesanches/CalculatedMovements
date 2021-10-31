@@ -128,8 +128,8 @@ def draw_swarm(p, grid_size=18, t_delay=0):
 
 def draw_scene1(time, total_time):
     global t
-    py5.background(30);
-    py5.stroke_weight(4);
+    py5.background(30)
+    py5.stroke_weight(4)
     t = time/(float(total_time)/LENGTH_scene1)
 
     def content():
@@ -140,7 +140,7 @@ def draw_scene1(time, total_time):
 
 def shadowed(content, x=0, y=0, fill=py5.fill):
     for offs in reversed(range(6)):
-        fill(128 + (offs == 0) * 127);
+        fill(128 + (offs == 0) * 127)
         py5.push_matrix()
         py5.translate(x - offs, y + offs)
         content()
@@ -158,7 +158,7 @@ def draw_countdown(time, total_time):
         print_text("5, 4, 3, 2, 1...")
         print_text("{}%".format(100*time//total_time))
 
-    py5.background(30);
+    py5.background(30)
     shadowed(content, 40, 150)
 
 
@@ -167,8 +167,8 @@ def draw_copyright(time, total_time):
         print_text("Copyright 1985")
         print_text("Solid State Animation")
 
-    py5.background(30);
-    shadowed(content, 15, 150);
+    py5.background(30)
+    shadowed(content, 15, 150)
 
 
 def draw_title_screen(time, total_time):
@@ -176,8 +176,8 @@ def draw_title_screen(time, total_time):
         print_text("Calculated")
         print_text("Movements")
 
-    py5.background(30);
-    shadowed(content, 180, 150);
+    py5.background(30)
+    shadowed(content, 180, 150)
 
 
 def draw_tech_support(time, total_time):
@@ -191,8 +191,8 @@ def draw_tech_support(time, total_time):
         print_text("Lou Katz")
         print_text("Lyon Lamb Video Animation")
 
-    py5.background(30);
-    shadowed(content, 140, 50);
+    py5.background(30)
+    shadowed(content, 140, 50)
 
 
 def draw_creative_support(time, total_time):
@@ -206,8 +206,8 @@ def draw_creative_support(time, total_time):
         print_text("Larry Simon")
         print_text("Liza Kitchell")
 
-    py5.background(30);
-    shadowed(content, 140, 50);
+    py5.background(30)
+    shadowed(content, 140, 50)
 
 
 def draw_scene2(time, total_time):
@@ -215,14 +215,19 @@ def draw_scene2(time, total_time):
         print_text("Not Yet Implemented")
         print_text("Scene 2: {}%".format(100*time//total_time))
 
-    py5.background(30);
+    py5.background(30)
+    py5.stroke_weight(2)
+    py5.stroke(128)
+    for y in range(24):
+        if time > 400 * (23-y)/23.0 and time < total_time - 400 * y/23.0:
+            py5.line(0, (y+4)*(360/30.0), 640, (y+4)*(360/30.0))
     shadowed(content, 40, 150)
 
 
 def draw_scene3(time, total_time):
     global t
-    py5.background(30);
-    py5.stroke_weight(4);
+    py5.background(30)
+    py5.stroke_weight(4)
     t = time/(float(total_time)/LENGTH_scene3)
 
     def content():
@@ -250,14 +255,19 @@ def draw_scene4(time, total_time):
         print_text("Not Yet Implemented")
         print_text("Scene 4: {}%".format(100*time//total_time))
 
-    py5.background(30);
+    py5.background(30)
+    py5.stroke_weight(2)
+    py5.stroke(128)
+    for y in range(24):
+        if time > 400 * (23-y)/23.0 and time < total_time - 400 * y/23.0:
+            py5.line(0, (y+4)*(360/30.0), 640, (y+4)*(360/30.0))
     shadowed(content, 40, 150)
 
 
 def draw_scene5(time, total_time):
     global t
-    py5.background(30);
-    py5.stroke_weight(4);
+    py5.background(30)
+    py5.stroke_weight(4)
     t = time/(float(total_time)/LENGTH_scene5)
 
     def content():
@@ -277,7 +287,7 @@ def draw_larry_cuba(time, total_time):
     def content():
         print_text("Larry Cuba")
 
-    py5.background(30);
+    py5.background(30)
     shadowed(content, 180, 150)
 
 
@@ -290,7 +300,7 @@ def draw_grant(time, total_time):
         print_text("THE NATIONAL ENDOWMENT")
         print_text("FOR THE ARTS")
 
-    py5.background(30);
+    py5.background(30)
     py5.translate(250, 50)
     print_text("The Filmmaker")
     print_text("received a production")
