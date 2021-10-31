@@ -68,24 +68,24 @@ def load_sound_file():
     glib_mainloop.run()
 
 
-shape = [[9, 1, 1], [5, -1, 1], [4, 1, 1], [11, 1, -1], [5, -1, -1],
-         [2, 1, -1], [4, 1, 1], [3, -1, 1], [3, -1, -1], [2, 1, -1],
-         [2, 1, 1], [6, -1, 1], [3, -1, 0], [3, 0, 1], [3, -1, 0],
-         [3, 0, 1], [3, -1, 0], [3, 0, -1], [3, -1, 0], [3, 0, 1],
-         [3, -1, 0], [3, 0, -1], [3, 1, -1], [3, 1, 0], [3, 1, -1],
-         [2, 1, 0], [2, 1, -1], [2, -1, 0], [2, 1, -1], [2, -1, 0],
-         [2, 1, -1], [2, -1, 0], [2, -1, 1], [1, 1, 0], [1, -1, 1],
-         [1, 1, 0], [3, -1, 1], [1, 0, -1], [1, 1, -1], [1, -1, 0],
-         [1, -1, 1], [1, -1, 0], [1, 1, -1], [1, 0, -1], [1, -1, 1],
-         [1, 0, -1], [1, -1, 1], [1, 0, 1], [1, -1, 1], [1, 0, 1],
-         [1, -1, 1], [1, -1, 0], [1, 0, 1], [1, -1, 0], [1, 0, 1],
-         [1, -1, 0], [1, 0, -1], [1, 1, -1], [1, 0, -1], [1, 1, 0],
-         [1, 0, -1], [1, 1, 0], [1, 0, -1], [1, 1, 0], [1, 0, -1],
-         [13, 1, 1], [5, 1, -1], [2, -1, 0], [2, 1, 1], [3, 1, -1],
-         [5, -1, 0], [2, -1, 1], [3, 1, 1], [3, 1, -1], [4, 1, 1]]
+shape135 = [[9, 1, 1], [5, -1, 1], [4, 1, 1], [11, 1, -1], [5, -1, -1],
+            [2, 1, -1], [4, 1, 1], [3, -1, 1], [3, -1, -1], [2, 1, -1],
+            [2, 1, 1], [6, -1, 1], [3, -1, 0], [3, 0, 1], [3, -1, 0],
+            [3, 0, 1], [3, -1, 0], [3, 0, -1], [3, -1, 0], [3, 0, 1],
+            [3, -1, 0], [3, 0, -1], [3, 1, -1], [3, 1, 0], [3, 1, -1],
+            [2, 1, 0], [2, 1, -1], [2, -1, 0], [2, 1, -1], [2, -1, 0],
+            [2, 1, -1], [2, -1, 0], [2, -1, 1], [1, 1, 0], [1, -1, 1],
+            [1, 1, 0], [3, -1, 1], [1, 0, -1], [1, 1, -1], [1, -1, 0],
+            [1, -1, 1], [1, -1, 0], [1, 1, -1], [1, 0, -1], [1, -1, 1],
+            [1, 0, -1], [1, -1, 1], [1, 0, 1], [1, -1, 1], [1, 0, 1],
+            [1, -1, 1], [1, -1, 0], [1, 0, 1], [1, -1, 0], [1, 0, 1],
+            [1, -1, 0], [1, 0, -1], [1, 1, -1], [1, 0, -1], [1, 1, 0],
+            [1, 0, -1], [1, 1, 0], [1, 0, -1], [1, 1, 0], [1, 0, -1],
+            [13, 1, 1], [5, 1, -1], [2, -1, 0], [2, 1, 1], [3, 1, -1],
+            [5, -1, 0], [2, -1, 1], [3, 1, 1], [3, 1, -1], [4, 1, 1]]
 
 LENGTH = 0
-for L, dx, dy in shape:
+for L, dx, dy in shape135:
    LENGTH += L
 
 t = 0
@@ -102,7 +102,7 @@ LENGTH_scene3 = LENGTH + p_scene3[-1][0] + p_scene3[-1][1] + 4
 LENGTH_scene5 = LENGTH + p_scene5[-1][0] + p_scene3[-1][1]
 
 
-def draw_swarm(p, grid_size=18, t_delay=0):
+def draw_swarm(p, shape=shape135, grid_size=18, t=0, t_delay=0):
     x = 7
     y = 1
     pos = 0
@@ -127,13 +127,12 @@ def draw_swarm(p, grid_size=18, t_delay=0):
 
 
 def draw_scene1(time, total_time):
-    global t
     py5.background(30)
     py5.stroke_weight(4)
     t = time/(float(total_time)/LENGTH_scene1)
 
     def content():
-        draw_swarm(p_scene1)
+        draw_swarm(p_scene1, t=t)
     
     shadowed(content, fill=py5.stroke)
 
@@ -212,8 +211,7 @@ def draw_creative_support(time, total_time):
 
 def draw_scene2(time, total_time):
     def content():
-        print_text("Not Yet Implemented")
-        print_text("Scene 2: {}%".format(100*time//total_time))
+        print_text("Scene 2 (WIP): {}%".format(100*time//total_time))
 
     py5.background(30)
     py5.stroke_weight(2)
@@ -221,11 +219,40 @@ def draw_scene2(time, total_time):
     for y in range(24):
         if time > 400 * (23-y)/23.0 and time < total_time - 400 * y/23.0:
             py5.line(0, (y+4)*(360/30.0), 640, (y+4)*(360/30.0))
-    shadowed(content, 40, 150)
+
+    shadowed(content, 10, 30)
+
+
+def draw_scene2_effect1(time, total_time):
+    p_scene2_effect1 = [[0, 4]]
+    scene2_effect1_shape = [
+        [3, 1, 1], [3, 1, 0], [4, 1, 1],
+        [3, 1, 0], [3, 0, -1], [3, 1, 0]
+    ]
+    LENGTH_scene2_effect1 = 19 + 3 + 7*7
+
+    py5.stroke_weight(4)
+    t = time/(float(total_time)/LENGTH_scene2_effect1)
+
+    def content():
+        py5.push_matrix()
+        py5.translate(320, -9*25)
+
+        for i in range(7):
+            for j in range(7):
+                py5.translate(-18, 0)
+                draw_swarm(p_scene2_effect1,
+                           shape=scene2_effect1_shape,
+                           grid_size=9,
+                           t=t,
+                           t_delay=(7*i+j)*0.5)
+            py5.translate(7*18, 18)
+        py5.pop_matrix()
+
+    shadowed(content, fill=py5.stroke)
 
 
 def draw_scene3(time, total_time):
-    global t
     py5.background(30)
     py5.stroke_weight(4)
     t = time/(float(total_time)/LENGTH_scene3)
@@ -237,13 +264,13 @@ def draw_scene3(time, total_time):
         py5.push_matrix()
         for i in range(6):
             py5.translate(-30, 15)
-            draw_swarm(p_scene3, grid_size=9, t_delay=i*0.3)
+            draw_swarm(p_scene3, grid_size=9, t=t, t_delay=i*0.3)
         py5.pop_matrix()
 
         py5.translate(-15, 45)
         for i in range(6):
             py5.translate(-30, 15)
-            draw_swarm(p_scene3, grid_size=9, t_delay=(5+i)*0.3)
+            draw_swarm(p_scene3, grid_size=9, t=t, t_delay=(5+i)*0.3)
 
         py5.pop_matrix()
 
@@ -265,7 +292,6 @@ def draw_scene4(time, total_time):
 
 
 def draw_scene5(time, total_time):
-    global t
     py5.background(30)
     py5.stroke_weight(4)
     t = time/(float(total_time)/LENGTH_scene5)
@@ -276,7 +302,7 @@ def draw_scene5(time, total_time):
 
         for i in range(6):
             py5.translate(-50, 25)
-            draw_swarm(p_scene5, grid_size=9, t_delay=i*2)
+            draw_swarm(p_scene5, grid_size=9, t=t, t_delay=i*2)
 
         py5.pop_matrix()
 
@@ -327,6 +353,7 @@ scenes = [
     ["00:28.0", "00:36.0", draw_creative_support],
     ["00:39.0", "01:32.0", draw_scene1],
     ["01:36.0", "03:22.0", draw_scene2],
+    ["01:37.0", "01:46.0", draw_scene2_effect1],
     ["03:23.0", "03:55.0", draw_scene3],
     ["03:56.0", "05:42.0", draw_scene4],
     ["05:44.0", "06:05.0", draw_scene5],
@@ -354,6 +381,9 @@ def key_pressed():
            next_scene()
         elif py5.key in ['p', 'P']:
            prev_scene()
+        # TODO:
+        #elif py5.key == ' ':
+        #   toggle_scene_pause()
 
 
 def prev_scene():
