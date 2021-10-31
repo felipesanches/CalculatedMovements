@@ -246,7 +246,7 @@ def draw_scene2_effect1(time, total_time):
 
     def content():
         py5.push_matrix()
-        py5.translate(320, -9*25)
+        py5.translate(320 + 60, -9*25)
 
         for i in range(7):
             for j in range(7):
@@ -257,6 +257,37 @@ def draw_scene2_effect1(time, total_time):
                            t=t,
                            t_delay=(7*i+j)*0.5)
             py5.translate(7*18, 18)
+        py5.pop_matrix()
+
+    double_shadowed(content, fill=py5.stroke)
+
+
+def draw_scene2_effect2(time, total_time):
+    p_scene2_effect2 = [[0, 12]]
+    scene2_effect2_shape = [
+        [6, 1, 0], [6, 1, -1], [6, -1, 0], [6, -1, -1],
+        [6, 1, 0], [6, 1, -1], [6, -1, 0], [6, -1, -1],
+        [6, 1, 0], [6, 1, -1], [6, -1, 0], [6, -1, -1],
+        [6, 1, 0], [6, 1, -1], [6, -1, 0], [6, -1, -1]
+    ]
+    LENGTH_scene2_effect2 = 16*6 + 12
+
+    py5.stroke_weight(5)
+    t = time/(float(total_time)/LENGTH_scene2_effect2)
+
+    def content():
+        py5.push_matrix()
+        py5.translate(320 - 40, -9*36)
+
+        for i in range(7):
+            for j in range(7):
+                py5.translate(-9*4, 0)
+                draw_swarm(p_scene2_effect2,
+                           shape=scene2_effect2_shape,
+                           grid_size=9,
+                           t=t,
+                           t_delay=(7*i+j)*0.5)
+            py5.translate(7*9*4, 9*4)
         py5.pop_matrix()
 
     double_shadowed(content, fill=py5.stroke)
@@ -364,6 +395,7 @@ scenes = [
     ["00:39.0", "01:32.0", draw_scene1],
     ["01:36.0", "03:22.0", draw_scene2],
     ["01:37.0", "01:46.0", draw_scene2_effect1],
+    ["01:39.0", "01:42.0", draw_scene2_effect2],
     ["03:23.0", "03:55.0", draw_scene3],
     ["03:56.0", "05:42.0", draw_scene4],
     ["05:44.0", "06:05.0", draw_scene5],
